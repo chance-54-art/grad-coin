@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GRAD-COIN</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+body{margin:0;background:#0f1a2e;color:white;font-family:Arial;text-align:center;padding:20px}
+.box{background:#1a2b4a;border-radius:20px;padding:20px;margin-top:15px}
+h1{color:#ffd700;font-size:28px}
+#bal{font-size:42px;color:#ffd700;font-weight:bold}
+button{background:#ffd700;color:black;border:none;padding:16px;border-radius:15px;font-weight:bold;font-size:16px;width:100%;margin-top:10px}
+button:disabled{background:gray;color:white}
+.coin{font-size:80px}
+.small{font-size:13px;color:#aaa}
+</style>
+</head>
+<body>
+<h1>🚀 GRAD-COIN</h1>
+<p class="small">La monnaie de Kisangani 🇨🇩 | Officiel</p>
+<div class="box">
+<div class="coin">💰</div>
+<div id="bal">0</div>
+<p>GRAD</p>
+<p id="info" class="small">Mine GRATUIT chaque heure</p>
+<button id="mine" onclick="mine()">⛏️ MINER +10 GRAD</button>
+<button onclick="invite()">👥 INVITER +50 GRAD</button>
+</div>
+<div class="box">
+<p>🎁 Tâches</p>
+<button onclick="task()">✅ Rejoindre Canal +100 GRAD</button>
+<button onclick="task2()">📺 Regarder Vidéo +50 GRAD</button>
+</div>
+<p class="small">GRAD-COIN Officiel de Kisangani | Projet sérieux, communauté réelle</p>
+<script>
+let bal=parseInt(localStorage.getItem('grad')||'0');
+let last=parseInt(localStorage.getItem('last')||'0');
+document.getElementById('bal').innerText=bal;
+function save(){localStorage.setItem('grad',bal);localStorage.setItem('last',last);document.getElementById('bal').innerText=bal}
+function mine(){
+let now=Date.now();
+if(now-last<3600000){alert('Attends 1 heure Patron ! Tu as déjà miné.');return;}
+bal+=10;last=now;save();alert('🎉 +10 GRAD ! Solde: '+bal);
+}
+function invite(){
+let u=Telegram.WebApp.initDataUnsafe.user;
+let link='https://t.me/GRADCOIN_BOT?start='+ (u?u.id:'123');
+navigator.clipboard.writeText(link);alert('Lien copié ! Partage à tes amis. +50 GRAD');bal+=50;save();
+}
+function task(){bal+=100;save();alert('🎉 +100 GRAD !');window.open('https://t.me/GRADCOIN','_blank')}
+function task2(){bal+=50;save();alert('🎉 +50 GRAD !')}
+Telegram.WebApp.ready();Telegram.WebApp.expand();
+</script>
+</body>
+</html>
